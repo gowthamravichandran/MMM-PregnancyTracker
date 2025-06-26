@@ -1,8 +1,8 @@
 {
-  "name": "mmm-template",
+  "name": "mmm-pregnancytracker",
   "version": "1.0.0",
-  "description": "[Module description]",
-  "main": "MMM-Template.js",
+  "description": "A MagicMirror² module that tracks pregnancy progress and displays fetus images based on the current week of pregnancy.",
+  "main": "MMM-PregnancyTracker.js",
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -10,17 +10,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+[GitHub url].git"
+    "url": "git+https://github.com/yourusername/MMM-PregnancyTracker.git"
   },
   "keywords": [
-    "template"
+    "magicmirror",
+    "module",
+    "pregnancy",
+    "tracker",
+    "baby",
+    "fetus",
+    "development"
   ],
-  "author": "[Author]",
+  "author": "Your Name",
   "license": "MIT",
   "bugs": {
-    "url": "[GitHub url]/issues"
+    "url": "https://github.com/yourusername/MMM-PregnancyTracker/issues"
   },
-  "homepage": "[GitHub url]#readme",
+  "homepage": "https://github.com/yourusername/MMM-PregnancyTracker#readme",
   "devDependencies": {
     "@eslint/css": "^0.8.1",
     "@eslint/js": "^9.27.0",

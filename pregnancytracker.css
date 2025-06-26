@@ -1,0 +1,277 @@
+/* MMM-PregnancyTracker Styles */
+
+.MMM-PregnancyTracker .pregnancy-tracker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #fff;
+  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  padding: 10px;
+  border-radius: 15px;
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Module header uses default MagicMirror styles */
+.MMM-PregnancyTracker .module-header {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.MMM-PregnancyTracker .pregnancy-message {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin-top: 10px;
+  font-size: 1.2em;
+}
+
+.MMM-PregnancyTracker .pregnancy-header {
+  width: 100%;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.MMM-PregnancyTracker .pregnancy-header:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.MMM-PregnancyTracker .pregnancy-header h2 {
+  font-size: 2.8em;
+  margin: 0 0 10px 0;
+  font-weight: 300;
+  color: #fff;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.MMM-PregnancyTracker .due-date {
+  font-size: 1.3em;
+  margin: 5px 0;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+.MMM-PregnancyTracker .days-remaining {
+  font-size: 1.3em;
+  margin: 10px 0 5px;
+  color: #f8f8f8;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Progress bar */
+.MMM-PregnancyTracker .pregnancy-progress {
+  width: 90%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  margin: 10px 0 25px;
+  overflow: hidden;
+  position: relative;
+}
+
+.MMM-PregnancyTracker .pregnancy-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.8) 100%);
+  border-radius: 4px;
+  transition: width 1s ease-in-out;
+}
+
+.MMM-PregnancyTracker .pregnancy-content {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 25px;
+}
+
+.MMM-PregnancyTracker .fetus-image {
+  flex: 0 0 45%;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.MMM-PregnancyTracker .fetus-image:hover {
+  transform: translateY(-5px);
+}
+
+.MMM-PregnancyTracker .fetus-image img {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+}
+
+.MMM-PregnancyTracker .pregnancy-info {
+  flex: 0 0 50%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.MMM-PregnancyTracker .size-comparison,
+.MMM-PregnancyTracker .developmental-milestones {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.MMM-PregnancyTracker .size-comparison:hover,
+.MMM-PregnancyTracker .developmental-milestones:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.MMM-PregnancyTracker h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.4em;
+  font-weight: 400;
+  color: #fff;
+  position: relative;
+  padding-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.MMM-PregnancyTracker h3:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.MMM-PregnancyTracker .size-comparison p {
+  margin: 0;
+  font-size: 1.2em;
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+.MMM-PregnancyTracker .developmental-milestones ul {
+  margin: 0;
+  padding: 0 0 0 20px;
+  list-style-type: none;
+}
+
+.MMM-PregnancyTracker .developmental-milestones li {
+  margin-bottom: 12px;
+  line-height: 1.5;
+  position: relative;
+  padding-left: 15px;
+  font-weight: 300;
+  font-size: 1.1em;
+}
+
+.MMM-PregnancyTracker .developmental-milestones li:before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.MMM-PregnancyTracker .developmental-milestones li:last-child {
+  margin-bottom: 0;
+}
+
+.MMM-PregnancyTracker .pregnancy-complete {
+  text-align: center;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.MMM-PregnancyTracker .pregnancy-complete h2 {
+  font-size: 2.8em;
+  margin: 0 0 20px 0;
+  color: #fff;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.MMM-PregnancyTracker .pregnancy-complete p {
+  font-size: 1.5em;
+  margin: 0;
+  font-weight: 300;
+  opacity: 0.9;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.MMM-PregnancyTracker .pregnancy-tracker {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.MMM-PregnancyTracker .size-comparison {
+  animation: fadeIn 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.MMM-PregnancyTracker .developmental-milestones {
+  animation: fadeIn 0.8s ease-out 0.4s forwards;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 600px) {
+  .MMM-PregnancyTracker .pregnancy-content {
+    flex-direction: column;
+  }
+  
+  .MMM-PregnancyTracker .fetus-image {
+    margin-bottom: 20px;
+    width: 100%;
+    flex: auto;
+  }
+  
+  .MMM-PregnancyTracker .pregnancy-info {
+    width: 100%;
+    flex: auto;
+  }
+  
+  .MMM-PregnancyTracker .pregnancy-header h2 {
+    font-size: 2.2em;
+  }
+  
+  .MMM-PregnancyTracker .due-date,
+  .MMM-PregnancyTracker .days-remaining {
+    font-size: 1.1em;
+  }
+}
