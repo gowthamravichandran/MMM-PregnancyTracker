@@ -85,11 +85,11 @@ Module.register("MMM-PregnancyTracker", {
       conceptionDate = moment(this.config.conceptionDate);
     } else if (this.config.lmpDate) {
       // Estimate conception as 2 weeks after LMP
-      conceptionDate = moment(this.config.lmpDate).add(2, 'weeks');
+      conceptionDate = moment(this.config.lmpDate);
     }
     
     // Calculate due date (40 weeks from conception)
-    const dueDate = moment(conceptionDate).add(38, 'weeks');
+    const dueDate = moment(conceptionDate).add(40, 'weeks');
     
     // Calculate current week
     const daysSinceConception = today.diff(conceptionDate, 'days');
