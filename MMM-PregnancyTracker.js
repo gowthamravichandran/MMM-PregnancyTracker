@@ -151,58 +151,46 @@ Module.register("MMM-PregnancyTracker", {
       return wrapper;
     }
     
-    // Create header with week information
-    const header = document.createElement("div");
-    header.className = "pregnancy-header";
-    header.innerHTML = `
-      <h2>Week ${this.pregnancyData.currentWeek}</h2>
-      <p class="due-date">Due Date: ${this.pregnancyData.dueDate}</p>
-      ${this.config.showDaysRemaining ? `<p class="days-remaining">${this.pregnancyData.daysRemaining} days remaining</p>` : ''}
-    `;
-    wrapper.appendChild(header);
+    // Create circular center design
+    const circle = document.createElement("div");
+    circle.className = "pregnancy-circle";
     
-    // Add progress bar
-    const progressPercentage = Math.min((this.pregnancyData.currentWeek / 40) * 100, 100);
-    const progressContainer = document.createElement("div");
-    progressContainer.className = "pregnancy-progress";
+    // Add week number to circle
+    const weekNumber = document.createElement("div");
+    weekNumber.className = "week-number";
+    weekNumber.textContent = this.pregnancyData.currentWeek;
+    circle.appendChild(weekNumber);
     
-    const progressBar = document.createElement("div");
-    progressBar.className = "pregnancy-progress-bar";
-    progressBar.style.width = `${progressPercentage}%`;
-    
-    progressContainer.appendChild(progressBar);
-    wrapper.appendChild(progressContainer);
-    
-    // Create content container
-    const content = document.createElement("div");
-    content.className = "pregnancy-content";
-    
-    // Add fetus image
-    const imageContainer = document.createElement("div");
-    imageContainer.className = "fetus-image";
+    // Add fetus image to circle
+    const fetusContainer = document.createElement("div");
+    fetusContainer.className = "fetus-container";
     if (this.pregnancyData.imageUrl) {
       const image = document.createElement("img");
       image.src = this.pregnancyData.imageUrl;
       image.alt = `Fetus at week ${this.pregnancyData.currentWeek}`;
-      imageContainer.appendChild(image);
+      fetusContainer.appendChild(image);
     } else {
-      imageContainer.innerHTML = "Loading image...";
+      fetusContainer.innerHTML = "Loading image...";
     }
-    content.appendChild(imageContainer);
+    circle.appendChild(fetusContainer);
     
-    // Add information section
-    const infoSection = document.createElement("div");
-    infoSection.className = "pregnancy-info";
+    // Add circle to wrapper
+    wrapper.appendChild(circle);
+    
+    // Add due date and days remaining
+    const dateInfo = document.createElement("div");
+    dateInfo.innerHTML = `
+      <p class="due-date">Due Date: ${this.pregnancyData.dueDate}</p>
+      ${this.config.showDaysRemaining ? `<p class="days-remaining">${this.pregnancyData.daysRemaining} days remaining</p>` : ''}
+    `;
+    wrapper.appendChild(dateInfo);
     
     // Add size comparison if enabled
     if (this.config.showSizeComparison && this.pregnancyData.sizeComparison) {
       const sizeComparison = document.createElement("div");
       sizeComparison.className = "size-comparison";
-      sizeComparison.innerHTML = `
-        <h3>Size Comparison</h3>
-        <p>${this.pregnancyData.sizeComparison}</p>
-      `;
-      infoSection.appendChild(sizeComparison);
+      sizeComparison.innerHTML = `<p>${this.pregnancyData.sizeComparison}</p>`;
+      wrapper.appendChild(sizeComparison);
     }
     
     // Add developmental milestones if enabled
@@ -219,11 +207,8 @@ Module.register("MMM-PregnancyTracker", {
       });
       
       milestones.appendChild(milestoneList);
-      infoSection.appendChild(milestones);
+      wrapper.appendChild(milestones);
     }
-    
-    content.appendChild(infoSection);
-    wrapper.appendChild(content);
     
     return wrapper;
   },
