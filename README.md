@@ -2,7 +2,7 @@
 
 A [MagicMirror²](https://github.com/MichMich/MagicMirror) module that tracks pregnancy progress and displays fetus images based on the current week of pregnancy.
 
-![Example of MMM-PregnancyTracker](./images/example.png)
+![Example of MMM-PregnancyTracker](./example_1.png)
 
 ## Features
 
@@ -23,7 +23,7 @@ cd ~/MagicMirror/modules
 
 2. Clone this repository:
 ```bash
-git clone https://github.com/yourusername/MMM-PregnancyTracker.git
+git clone https://github.com/gowthamravichandran/MMM-PregnancyTracker.git
 ```
 
 3. Add the module to your `config/config.js` file:
@@ -33,7 +33,7 @@ git clone https://github.com/yourusername/MMM-PregnancyTracker.git
   position: 'middle_center',
   config: {
     // See configuration options below
-    conceptionDate: "2025-01-15" // Format: YYYY-MM-DD
+    lmpDate: "2025-01-15" // Format: YYYY-MM-DD
   }
 }
 ```
