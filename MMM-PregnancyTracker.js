@@ -161,8 +161,10 @@ Module.register("MMM-PregnancyTracker", {
     `;
     wrapper.appendChild(header);
     
-    // Add progress bar
+    // Calculate progress percentage (used for both progress bars)
     const progressPercentage = Math.min((this.pregnancyData.currentWeek / 40) * 100, 100);
+    
+    // Add original progress bar (hidden via CSS but kept for compatibility)
     const progressContainer = document.createElement("div");
     progressContainer.className = "pregnancy-progress";
     
@@ -177,17 +179,86 @@ Module.register("MMM-PregnancyTracker", {
     const content = document.createElement("div");
     content.className = "pregnancy-content";
     
-    // Add fetus image
+    // Add fetus image with circular progress
     const imageContainer = document.createElement("div");
     imageContainer.className = "fetus-image";
+    
+    // Create circular progress container
+    const circularProgress = document.createElement("div");
+    circularProgress.className = "circular-progress";
+    
+    // Create SVG for circular progress
+    const svgNS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("class", "progress-ring");
+    svg.setAttribute("viewBox", "0 0 100 100");
+    
+    // Add gradient definition
+    const defs = document.createElementNS(svgNS, "defs");
+    const linearGradient = document.createElementNS(svgNS, "linearGradient");
+    linearGradient.setAttribute("id", "progressGradient");
+    linearGradient.setAttribute("x1", "0%");
+    linearGradient.setAttribute("y1", "0%");
+    linearGradient.setAttribute("x2", "100%");
+    linearGradient.setAttribute("y2", "0%");
+    
+    const stop1 = document.createElementNS(svgNS, "stop");
+    stop1.setAttribute("offset", "0%");
+    stop1.setAttribute("stop-color", "rgba(255, 255, 255, 0.5)");
+    
+    const stop2 = document.createElementNS(svgNS, "stop");
+    stop2.setAttribute("offset", "100%");
+    stop2.setAttribute("stop-color", "rgba(255, 255, 255, 0.9)");
+    
+    linearGradient.appendChild(stop1);
+    linearGradient.appendChild(stop2);
+    defs.appendChild(linearGradient);
+    svg.appendChild(defs);
+    
+    // Calculate circle parameters
+    const radius = 45;
+    const circumference = 2 * Math.PI * radius;
+    
+    // Background circle
+    const circleBg = document.createElementNS(svgNS, "circle");
+    circleBg.setAttribute("class", "progress-ring-circle-bg");
+    circleBg.setAttribute("cx", "50");
+    circleBg.setAttribute("cy", "50");
+    circleBg.setAttribute("r", radius);
+    
+    // Progress circle
+    const circle = document.createElementNS(svgNS, "circle");
+    circle.setAttribute("class", "progress-ring-circle");
+    circle.setAttribute("cx", "50");
+    circle.setAttribute("cy", "50");
+    circle.setAttribute("r", radius);
+    circle.setAttribute("stroke-dasharray", circumference);
+    
+    // Calculate offset for circular progress
+    const offset = circumference - (progressPercentage / 100) * circumference;
+    circle.setAttribute("stroke-dashoffset", offset);
+    
+    svg.appendChild(circleBg);
+    svg.appendChild(circle);
+    circularProgress.appendChild(svg);
+    
+    // Create inner image container
+    const innerImageContainer = document.createElement("div");
+    innerImageContainer.className = "image-container";
+    
+    // Add image
     if (this.pregnancyData.imageUrl) {
       const image = document.createElement("img");
       image.src = this.pregnancyData.imageUrl;
       image.alt = `Fetus at week ${this.pregnancyData.currentWeek}`;
-      imageContainer.appendChild(image);
+      innerImageContainer.appendChild(image);
     } else {
-      imageContainer.innerHTML = "Loading image...";
+      innerImageContainer.innerHTML = "Loading image...";
     }
+    
+    // Add inner image container to circular progress
+    circularProgress.appendChild(innerImageContainer);
+    imageContainer.appendChild(circularProgress);
     content.appendChild(imageContainer);
     
     // Add information section
