@@ -1,6 +1,7 @@
 const NodeHelper = require("node_helper");
 const path = require("path");
 const fs = require("fs");
+const Log = require("logger");
 
 module.exports = NodeHelper.create({
   // Initialize variables
@@ -8,7 +9,7 @@ module.exports = NodeHelper.create({
 
   // Initialize the module
   start: function() {
-    console.log(`Starting node helper for: ${this.name}`);
+    Log.log(`Starting node helper for: ${this.name}`);
     this.loadPregnancyData();
   },
 
@@ -28,14 +29,14 @@ module.exports = NodeHelper.create({
           sizeComparisons: sizeComparisons
         };
         
-        console.log("Pregnancy data loaded successfully");
+        Log.log("Pregnancy data loaded successfully");
       } else {
-        console.error("Pregnancy data files not found. Please ensure data/milestones.json and data/size_comparisons.json exist.");
+        Log.error("Pregnancy data files not found. Please ensure data/milestones.json and data/size_comparisons.json exist.");
         // Create the data structure with placeholder data
         this.createPlaceholderData();
       }
     } catch (error) {
-      console.error("Error loading pregnancy data:", error);
+      Log.error("Error loading pregnancy data:", error);
       // Create the data structure with placeholder data
       this.createPlaceholderData();
     }
@@ -43,7 +44,7 @@ module.exports = NodeHelper.create({
 
   // Create placeholder data if files don't exist
   createPlaceholderData: function() {
-    console.log("Creating placeholder pregnancy data");
+    Log.log("Creating placeholder pregnancy data");
     
     // Create basic data structure
     this.pregnancyData = {
@@ -78,7 +79,7 @@ module.exports = NodeHelper.create({
       JSON.stringify(this.pregnancyData.sizeComparisons, null, 2)
     );
     
-    console.log("Placeholder data files created. Please update with actual pregnancy data.");
+    Log.log("Placeholder data files created. Please update with actual pregnancy data.");
   },
 
   // Get image URL for a specific week
