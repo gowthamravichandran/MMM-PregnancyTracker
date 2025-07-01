@@ -126,7 +126,7 @@
 
 .MMM-PregnancyTracker .progress-ring-circle {
   fill: transparent;
-  stroke: url(#progressGradient);
+  stroke: rgba(255, 255, 255, 0.9);
   stroke-width: 8;
   stroke-linecap: round;
   filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
@@ -162,21 +162,28 @@
 
 /* Week indicator removed */
 
-/* Glowing effect for the progress ring - more contained */
-@keyframes glowing {
+/* Pulsing effect removed as requested */
+
+/* Gentle breathing animation for the image */
+@keyframes gentle-breathing {
   0% {
-    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.6));
+    transform: translate(-50%, -50%) scale(0.98);
   }
   50% {
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+    transform: translate(-50%, -50%) scale(1.02);
   }
   100% {
-    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.6));
+    transform: translate(-50%, -50%) scale(0.98);
   }
 }
 
+/* Apply the breathing animation to the image container */
+.MMM-PregnancyTracker .image-container {
+  animation: gentle-breathing 4s ease-in-out infinite;
+}
+
 .MMM-PregnancyTracker .progress-ring-circle {
-  animation: glowing 4s infinite;
+  /* Animation removed */
   transform-origin: center;
 }
 
