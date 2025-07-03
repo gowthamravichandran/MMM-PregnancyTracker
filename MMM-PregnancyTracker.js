@@ -61,16 +61,42 @@ Module.register("MMM-PregnancyTracker", {
     // Calculate initial pregnancy data
     this.calculatePregnancyData();
     
-    // Set up regular updates
-    setInterval(() => {
-      this.calculatePregnancyData();
-      this.updateDom();
-    }, this.config.updateInterval);
+    // Set up midnight-aligned updates
+    this.scheduleNextUpdate();
     
     // Request initial data from node helper
     this.sendSocketNotification("GET_PREGNANCY_DATA", {
       week: this.pregnancyData.currentWeek
     });
+  },
+  
+  /**
+   * Schedule the next update at midnight
+   */
+  scheduleNextUpdate() {
+    // Calculate time until next midnight
+    const now = moment();
+    const tomorrow = moment().add(1, 'day').startOf('day');
+    const msUntilMidnight = tomorrow.diff(now);
+    
+    Log.info(`${this.name}: Scheduled next update in ${Math.round(msUntilMidnight / 1000 / 60)} minutes (at midnight)`);
+    
+    // Schedule update at midnight
+    setTimeout(() => {
+      Log.info(`${this.name}: Midnight update triggered`);
+      
+      // Recalculate pregnancy data
+      this.calculatePregnancyData();
+      
+      // Update the display
+      this.updateDom();
+      
+      // Request updated data from node helper
+      this.updatePregnancyData();
+      
+      // Schedule next update
+      this.scheduleNextUpdate();
+    }, msUntilMidnight);
   },
 
   /**
@@ -78,22 +104,31 @@ Module.register("MMM-PregnancyTracker", {
    */
   calculatePregnancyData() {
     const today = moment();
-    let conceptionDate;
+    let startDate;
+    let dueDate;
     
-    // Calculate conception date
+    // Determine calculation method based on provided dates
     if (this.config.conceptionDate) {
-      conceptionDate = moment(this.config.conceptionDate);
+      // If conception date is provided, use it directly
+      startDate = moment(this.config.conceptionDate);
+      // Due date is 38 weeks from conception
+      dueDate = moment(startDate).add(38, 'weeks');
+      // Add 2 weeks to align with standard pregnancy week counting
+      startDate = moment(startDate).subtract(2, 'weeks');
     } else if (this.config.lmpDate) {
-      // Estimate conception as 2 weeks after LMP
-      conceptionDate = moment(this.config.lmpDate);
+      // If LMP date is provided, use it directly
+      startDate = moment(this.config.lmpDate);
+      // Due date is 40 weeks from LMP
+      dueDate = moment(startDate).add(40, 'weeks');
     }
     
-    // Calculate due date (40 weeks from conception)
-    const dueDate = moment(conceptionDate).add(40, 'weeks');
+    // Calculate current week (from LMP or adjusted conception date)
+    const daysSinceStart = today.diff(startDate, 'days');
+
+    const currentWeek = Math.ceil(daysSinceStart / 7);
     
-    // Calculate current week
-    const daysSinceConception = today.diff(conceptionDate, 'days');
-    const currentWeek = Math.floor(daysSinceConception / 7) + 1;
+    // Log calculation details for debugging
+    Log.info(`${this.name}: Days since start: ${daysSinceStart}, Current week: ${currentWeek}`);
     
     // Calculate days remaining
     const daysRemaining = dueDate.diff(today, 'days');
@@ -315,6 +350,21 @@ Module.register("MMM-PregnancyTracker", {
     if (notification === "MODULE_DOM_CREATED") {
       // Module's DOM has been created, we can now update the data
       this.updatePregnancyData();
+    } else if (notification === "CLOCK_MINUTE") {
+      // Check if it's midnight (00:00)
+      const now = moment();
+      if (now.hour() === 0 && now.minute() === 0) {
+        Log.info(`${this.name}: Midnight update triggered via CLOCK_MINUTE notification`);
+        
+        // Recalculate pregnancy data
+        this.calculatePregnancyData();
+        
+        // Request updated data from node helper
+        this.updatePregnancyData();
+        
+        // Update the display
+        this.updateDom();
+      }
     }
   }
 })
