@@ -19,7 +19,12 @@
     "tracker",
     "baby",
     "fetus",
-    "development"
+    "development",
+    "progress",
+    "weeks",
+    "milestones",
+    "size",
+    "health"
   ],
   "author": "Gowtham Ravichandran",
   "license": "MIT",
