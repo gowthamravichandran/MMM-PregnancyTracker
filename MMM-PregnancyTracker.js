@@ -125,7 +125,7 @@ Module.register("MMM-PregnancyTracker", {
     // Calculate current week (from LMP or adjusted conception date)
     const daysSinceStart = today.diff(startDate, 'days');
 
-    const currentWeek = Math.ceil(daysSinceStart / 7);
+    const currentWeek = Math.floor(daysSinceStart / 7);
     
     // Log calculation details for debugging
     Log.info(`${this.name}: Days since start: ${daysSinceStart}, Current week: ${currentWeek}`);
